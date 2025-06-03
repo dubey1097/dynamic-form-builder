@@ -3,14 +3,18 @@
         <h2>Forms</h2>
         <div class="header-actions">
             <div class="user-info" *ngIf="currentUser">
-                Logged in as: {{ currentUser.email }}
+                <strong>Logged in as:</strong> {{ currentUser.email }}
             </div>
-            <button mat-raised-button color="primary" routerLink="/create-form" *ngIf="currentUser?.role === 'admin'">
-                Create New Form
-            </button>
-            <button mat-raised-button color="warn" (click)="logout()">
-                Logout
-            </button>
+            <div class="actions">
+                <button mat-raised-button color="primary" routerLink="/create-form"
+                    *ngIf="currentUser?.role === 'admin'">
+                    Create New Form
+                </button>
+                <button mat-raised-button color="warn" (click)="logout()">
+                    Logout
+                </button>
+            </div>
+
         </div>
     </div>
 
