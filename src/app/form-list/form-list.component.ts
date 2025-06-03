@@ -22,6 +22,7 @@ export class FormListComponent implements OnInit, OnDestroy, AfterViewInit {
     sortOrder: 'asc' | 'desc' = 'desc';
     currentUser: User | null = null;
 
+    
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
 
