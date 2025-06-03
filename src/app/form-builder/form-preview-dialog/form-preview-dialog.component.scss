@@ -1,0 +1,52 @@
+.preview-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 0;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.form-preview-block {
+    margin-bottom: 16px;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.6);
+        margin-bottom: 4px;
+    }
+
+    mat-radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    mat-radio-button {
+        margin-bottom: 8px;
+    }
+}
+
+.checkbox-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+mat-hint {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+mat-error {
+    font-size: 12px;
+    color: #f44336;
+}

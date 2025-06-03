@@ -1,0 +1,89 @@
+<h2 mat-dialog-title>Form Preview</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="previewForm" class="preview-form">
+        <ng-container *ngFor="let field of fields; let i = index">
+            <ng-container [ngSwitch]="field.type.type">
+                <!-- Text Input -->
+                <mat-form-field appearance="outline" class="full-width" *ngSwitchCase="'text'">
+                    <mat-label>{{field.label}}</mat-label>
+                    <input matInput [formControlName]="'field' + i" [placeholder]="field.placeholder || ''">
+                    <mat-hint *ngIf="field.helpText">{{field.helpText}}</mat-hint>
+                    <mat-error *ngIf="previewForm.get('field' + i)?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                    <mat-error *ngIf="previewForm.get('field' + i)?.hasError('pattern')">
+                        Invalid format
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Text Area -->
+                <mat-form-field appearance="outline" class="full-width" *ngSwitchCase="'textarea'">
+                    <mat-label>{{field.label}}</mat-label>
+                    <textarea matInput [formControlName]="'field' + i" [placeholder]="field.placeholder || ''"
+                        rows="4"></textarea>
+                    <mat-hint *ngIf="field.helpText">{{field.helpText}}</mat-hint>
+                    <mat-error *ngIf="previewForm.get('field' + i)?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Select -->
+                <mat-form-field appearance="outline" class="full-width" *ngSwitchCase="'select'">
+                    <mat-label>{{field.label}}</mat-label>
+                    <mat-select [formControlName]="'field' + i">
+                        <mat-option *ngFor="let option of field.options" [value]="option.value">
+                            {{option.value}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="field.helpText">{{field.helpText}}</mat-hint>
+                    <mat-error *ngIf="previewForm.get('field' + i)?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Radio Buttons -->
+                <div class="radio-group" *ngSwitchCase="'radio'">
+                    <label>{{field.label}}</label>
+                    <mat-radio-group [formControlName]="'field' + i">
+                        <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
+                            {{option.value}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <mat-hint *ngIf="field.helpText">{{field.helpText}}</mat-hint>
+                    <mat-error *ngIf="previewForm.get('field' + i)?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                </div>
+
+                <!-- Checkbox -->
+                <div class="checkbox-field" *ngSwitchCase="'checkbox'">
+                    <mat-checkbox [formControlName]="'field' + i">
+                        {{field.label}}
+                    </mat-checkbox>
+                    <mat-hint *ngIf="field.helpText">{{field.helpText}}</mat-hint>
+                </div>
+
+                <!-- Date Picker -->
+                <mat-form-field appearance="outline" class="full-width" *ngSwitchCase="'date'">
+                    <mat-label>{{field.label}}</mat-label>
+                    <input matInput [formControlName]="'field' + i" [matDatepicker]="picker" [min]="field.minDate"
+                        [max]="field.maxDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-hint *ngIf="field.helpText">{{field.helpText}}</mat-hint>
+                    <mat-error *ngIf="previewForm.get('field' + i)?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                </mat-form-field>
+            </ng-container>
+        </ng-container>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Close</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!previewForm.valid">
+        Submit
+    </button>
+</mat-dialog-actions>
