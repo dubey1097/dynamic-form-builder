@@ -44,7 +44,6 @@ export class FormService {
         const storedForms = localStorage.getItem(this.storageKey);
         if (storedForms) {
             const parsedForms = JSON.parse(storedForms);
-            // Convert string dates back to Date objects
             parsedForms.forEach((form: Form) => {
                 form.createdAt = new Date(form.createdAt);
                 form.updatedAt = new Date(form.updatedAt);

@@ -4,7 +4,6 @@
     <form [formGroup]="previewForm" class="preview-form">
         <ng-container *ngFor="let field of fields; let i = index">
             <ng-container [ngSwitch]="field.type.type">
-                <!-- Text Input -->
                 <mat-form-field appearance="outline" class="full-width" *ngSwitchCase="'text'">
                     <mat-label>{{field.label}}</mat-label>
                     <input matInput [formControlName]="'field' + i" [placeholder]="field.placeholder || ''">
@@ -17,7 +16,6 @@
                     </mat-error>
                 </mat-form-field>
 
-                <!-- Text Area -->
                 <mat-form-field appearance="outline" class="full-width" *ngSwitchCase="'textarea'">
                     <mat-label>{{field.label}}</mat-label>
                     <textarea matInput [formControlName]="'field' + i" [placeholder]="field.placeholder || ''"
@@ -28,7 +26,6 @@
                     </mat-error>
                 </mat-form-field>
 
-                <!-- Select -->
                 <mat-form-field appearance="outline" class="full-width" *ngSwitchCase="'select'">
                     <mat-label>{{field.label}}</mat-label>
                     <mat-select [formControlName]="'field' + i">
@@ -42,7 +39,6 @@
                     </mat-error>
                 </mat-form-field>
 
-                <!-- Radio Buttons -->
                 <div class="radio-group" *ngSwitchCase="'radio'">
                     <label>{{field.label}}</label>
                     <mat-radio-group [formControlName]="'field' + i">
@@ -56,7 +52,6 @@
                     </mat-error>
                 </div>
 
-                <!-- Checkbox -->
                 <div class="checkbox-field" *ngSwitchCase="'checkbox'">
                     <mat-checkbox [formControlName]="'field' + i">
                         {{field.label}}
@@ -64,7 +59,6 @@
                     <mat-hint *ngIf="field.helpText">{{field.helpText}}</mat-hint>
                 </div>
 
-                <!-- Date Picker -->
                 <mat-form-field appearance="outline" class="full-width" *ngSwitchCase="'date'">
                     <mat-label>{{field.label}}</mat-label>
                     <input matInput [formControlName]="'field' + i" [matDatepicker]="picker" [min]="field.minDate"

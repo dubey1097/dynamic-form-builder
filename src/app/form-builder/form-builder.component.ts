@@ -73,7 +73,6 @@ export class FormBuilderComponent implements OnInit {
       maxDate: [null]
     });
 
-    // Subscribe to form value changes
     this.fieldForm.valueChanges.subscribe(value => {
       this.updateSelectedField(value);
     });
@@ -101,7 +100,6 @@ export class FormBuilderComponent implements OnInit {
     } else {
       const fieldType = event.item.data as FieldType;
       
-      // Helper function to get appropriate base label for each field type
       const getBaseLabel = (type: string): string => {
         switch (type) {
           case 'select':
@@ -115,7 +113,6 @@ export class FormBuilderComponent implements OnInit {
         }
       };
 
-      // Count existing fields of the same type
       const existingFieldsCount = this.formFields.filter(field => 
         field.type.type === fieldType.type
       ).length;
@@ -129,7 +126,6 @@ export class FormBuilderComponent implements OnInit {
         required: false
       };
 
-      // Initialize options for choice fields with meaningful defaults
       if (fieldType.type === 'select' || fieldType.type === 'radio') {
         newField.options = [
           { value: 'Option 1' },
@@ -152,8 +148,6 @@ export class FormBuilderComponent implements OnInit {
 
   updateFieldForm(): void {
     if (this.selectedField) {
-      // Reset the options array first
-      // this.optionsArray.clear();
       this.fieldForm.patchValue({
         label: this.selectedField.label,
         placeholder: this.selectedField.placeholder || '',
@@ -165,7 +159,6 @@ export class FormBuilderComponent implements OnInit {
         maxDate: this.selectedField.maxDate || null
       });
 
-      // Initialize empty options array for select and radio types if none exist
       if ((this.selectedField.type.type === 'select' || this.selectedField.type.type === 'radio')) {
         if (!this.selectedField.options || this.selectedField.options.length === 0) {
           this.selectedField.options = [{ value: '' }];
@@ -198,7 +191,6 @@ export class FormBuilderComponent implements OnInit {
 
   addOption(): void {
     this.optionsArray.push(this.fb.group({ value: '' }));
-    // Update the selected field's options immediately
     if (this.selectedField && (this.selectedField.type.type === 'select' || this.selectedField.type.type === 'radio')) {
       this.selectedField.options = this.optionsArray.controls.map(control => ({
         value: control.get('value')?.value || ''
@@ -208,7 +200,6 @@ export class FormBuilderComponent implements OnInit {
 
   removeOption(index: number): void {
     this.optionsArray.removeAt(index);
-    // Update the selected field's options immediately
     if (this.selectedField && (this.selectedField.type.type === 'select' || this.selectedField.type.type === 'radio')) {
       this.selectedField.options = this.optionsArray.controls.map(control => ({
         value: control.get('value')?.value || ''
@@ -229,7 +220,6 @@ export class FormBuilderComponent implements OnInit {
       return;
     }
 
-    // Clean up empty options before saving
     const cleanedFields = this.formFields.map(field => {
       if (field.type.type === 'select' || field.type.type === 'radio') {
         return {
@@ -257,7 +247,6 @@ export class FormBuilderComponent implements OnInit {
 
   updateSelectedField(value: any): void {
     if (this.selectedField && this.selectedFieldIndex !== null) {
-      // Update the selected field with form values
       this.selectedField.label = value.label;
       this.selectedField.placeholder = value.placeholder;
       this.selectedField.helpText = value.helpText;
@@ -267,10 +256,8 @@ export class FormBuilderComponent implements OnInit {
       this.selectedField.minDate = value.minDate;
       this.selectedField.maxDate = value.maxDate;
 
-      // Only update options for select and radio types
       if (this.selectedField.type.type === 'select' || this.selectedField.type.type === 'radio') {
         if (value.options) {
-          // Filter out empty options only when saving, not while editing
           this.selectedField.options = value.options.map((opt: { value: string }) => ({
             value: opt.value
           }));
@@ -278,11 +265,9 @@ export class FormBuilderComponent implements OnInit {
           this.selectedField.options = [{ value: '' }];
         }
       } else {
-        // Clear options for other field types
         delete this.selectedField.options;
       }
 
-      // Update the field in the formFields array
       this.formFields[this.selectedFieldIndex] = { ...this.selectedField };
     }
   }

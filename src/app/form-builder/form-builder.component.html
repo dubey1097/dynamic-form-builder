@@ -1,5 +1,4 @@
 <div class="builder-layout">
-    <!-- Left Panel - Field Types -->
     <div class="panel left">
         <h2>Field Types</h2>
         <div class="field-types" cdkDropList #fieldTypesList="cdkDropList" [cdkDropListData]="availableFields"
@@ -13,7 +12,6 @@
         </div>
     </div>
 
-    <!-- Center Panel - Form Canvas -->
     <div class="panel center">
         <div class="form-header">
             <mat-form-field appearance="outline" class="full-width">
@@ -70,7 +68,6 @@
         </div>
     </div>
 
-    <!-- Right Panel - Field Properties -->
     <div class="panel right" *ngIf="selectedField">
         <h2>Field Properties</h2>
         <form [formGroup]="fieldForm" class="field-properties">
