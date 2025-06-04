@@ -43,7 +43,7 @@
 }
 
 .table-container {
-    flex: 1;
+    // flex: 1;
     overflow: auto;
     border-radius: 4px;
     background: white;
@@ -108,4 +108,8 @@
         margin: 0;
         font-size: 16px;
     }
+}
+
+.action-button{
+    display: flex;
 }

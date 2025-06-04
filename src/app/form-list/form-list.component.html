@@ -18,33 +18,6 @@
         </div>
     </div>
 
-    <div class="filters">
-        <mat-form-field appearance="outline" class="search-field">
-            <mat-label>Search Forms</mat-label>
-            <input matInput [(ngModel)]="searchQuery" (keyup)="applyFilter()"
-                placeholder="Search by name or description">
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="sort-field">
-            <mat-label>Sort By</mat-label>
-            <mat-select [(ngModel)]="sortBy" (selectionChange)="applyFilter()">
-                <mat-option value="name">Name</mat-option>
-                <mat-option value="createdAt">Created Date</mat-option>
-                <mat-option value="updatedAt">Last Updated</mat-option>
-                <mat-option value="fields">Number of Fields</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="order-field">
-            <mat-label>Order</mat-label>
-            <mat-select [(ngModel)]="sortOrder" (selectionChange)="applyFilter()">
-                <mat-option value="asc">Ascending</mat-option>
-                <mat-option value="desc">Descending</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-
     <div class="table-container mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="name">
@@ -75,21 +48,19 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let form">
-                    <button mat-icon-button color="primary" (click)="previewForm(form)" matTooltip="Preview Form">
-                        <mat-icon>visibility</mat-icon>
-                    </button>
-                    <button mat-icon-button color="accent" [routerLink]="['/edit-form', form.id]"
-                        *ngIf="currentUser?.role === 'admin'" matTooltip="Edit Form">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button color="warn" (click)="deleteForm(form.id)"
-                        *ngIf="currentUser?.role === 'admin'" matTooltip="Delete Form">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" (click)="duplicateForm(form)"
-                        *ngIf="currentUser?.role === 'admin'" matTooltip="Duplicate Form">
-                        <mat-icon>content_copy</mat-icon>
-                    </button>
+                    <div class="action-button">
+                        <button mat-icon-button color="primary" (click)="previewForm(form)" matTooltip="Preview Form">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent" [routerLink]="['/edit-form', form.id]"
+                            *ngIf="currentUser?.role === 'admin'" matTooltip="Edit Form">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="deleteForm(form.id)"
+                            *ngIf="currentUser?.role === 'admin'" matTooltip="Delete Form">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
                 </td>
             </ng-container>
 
